@@ -14,9 +14,6 @@
       vm.showComments = false;
       vm.sortBy = '-vote_count';
       vm.sorter = 'Sort By Votes';
-      for (var i = 4; i < 20; i++) {
-        $http.delete('api/posts/' + i).then(function(response) {});
-      }
       $http.get('/api/posts').then(response => {
         vm.posts = response.data;
       });
