@@ -36,7 +36,9 @@
     };
 
     vm.newComment = function(post) {
-      $http.post(`/api/posts/${post.id}/comments`, {content: post.cmtInput}).then(response => {
+      $http.post(`/api/posts/${post.id}/comments`, {
+        content: post.cmtInput
+      }).then(response => {
         post.comments.push(response.data);
       });
       delete post.cmtInput;
@@ -44,12 +46,16 @@
     };
 
     vm.upvote = function(post) {
-      post.vote_count++;
+      $http.post(`api/posts/${post.id}/votes`).then(function(response) {
+        post.vote_count++;
+      });
     };
 
     vm.downvote = function(post) {
       if (post.vote_count > 0) {
-        post.vote_count--;
+        $http.delete(`api/posts/${post.id}/votes`).then(function(response) {
+          post.vote_count--;
+        });
       }
     };
 
